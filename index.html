@@ -237,7 +237,13 @@ function drawWalls(filter = 'All') {
 
     if (w.image) {
       const img = document.createElement('img');
-      img.src = 'https://naveendevadiga545-rgb.github.io/Vyntra/wallpapers/584443600_17917153134214825_2232524934283976824_n.webp';;
+      img.src = 'https://naveendevadiga545-rgb.github.io/Vyntra/wallpapers/584443600_17917153134214825_2232524934283976824_n.webp';
+     img.onerror = function() {
+  alert('Image load failed!');
+};
+img.onload = function() {
+  console.log('Image loaded successfully!');
+};
       img.alt = w.name;
       img.style.width = '100%';
       img.style.height = '100%';
