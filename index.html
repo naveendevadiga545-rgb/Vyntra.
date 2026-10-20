@@ -274,11 +274,7 @@ img.onload = function() {
 }
 
 drawWalls();
-$('#wallFilters').addEventListener('click',e=>{
- if(!e.target.matches('button'))return;
- $$('#wallFilters button').forEach(b=>b.classList.remove('active'));
- e.target.classList.add('active');drawWalls(e.target.dataset.filter);
-});
+
 
 /* Image resize */
 let chosenImage=null;
