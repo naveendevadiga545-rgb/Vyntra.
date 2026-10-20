@@ -403,15 +403,19 @@ window.addEventListener('beforeinstallprompt', (event) => {
   vyntraInstallPrompt = event;
 });
 
+
 async function installVyntra() {
   if (vyntraInstallPrompt) {
     vyntraInstallPrompt.prompt();
     await vyntraInstallPrompt.userChoice;
     vyntraInstallPrompt = null;
+  } else if (window.matchMedia('(display-mode: standalone)').matches) {
+    alert('Vyntra is already installed!');
   } else {
-    alert('Install option is not ready yet. Please check the browser menu for Install app.');
+    alert('Please install Vyntra from the browser menu.');
   }
 }
+
 </script>
 
 </body>
