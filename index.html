@@ -202,20 +202,63 @@ const wallpapers = [
 {name:'Midnight Grid',cat:'Dark',price:20,emoji:'▦',bg:'linear-gradient(135deg,#080b17,#27375b,#6258b7)'},
 {name:'Golden Dunes',cat:'Nature',price:15,emoji:'🏜️',bg:'linear-gradient(135deg,#754a39,#e6a35d,#f4d9a0)'}
 ];
-function drawWalls(filter='All'){
- $('#wallpapers').innerHTML='';
- wallpapers.filter(w=>filter==='All'||w.cat===filter).forEach(w=>{
-  const card=document.createElement('article');card.className='wall';
-  const art=document.createElement('div');art.className='wallart';art.style.background=w.bg;art.textContent=w.emoji;
-  const info=document.createElement('div');info.className='wallinfo';
-  const title=document.createElement('h3');title.textContent=w.name;
-  const desc=document.createElement('p');desc.textContent=w.cat+' · Demo preview';
-  const price=document.createElement('strong');price.textContent='₹'+w.price+' ';
-  const btn=document.createElement('button');btn.textContent='Get wallpaper';
-  btn.addEventListener('click',()=>alert('Demo only: '+w.name+'. No payment was taken and no file was purchased.'));
-  info.append(title,desc,price,btn);card.append(art,info);$('#wallpapers').append(card);
- });
+
+function drawWalls(filter = 'All') {
+  $('#wallpapers').innerHTML = '';
+
+  wallpapers.filter(w => filter === 'All' || w.cat === filter).forEach(w => {
+    const card = document.createElement('article');
+    card.className = 'wall';
+
+    const art = document.createElement('div');
+    art.className = 'wallart';
+
+    if (w.image) {
+      const img = document.createElement('img');
+      img.src = w.image;
+      img.alt = w.name;
+      img.style.width = '100%';
+      img.style.height = '100%';
+      img.style.objectFit = 'cover';
+      art.style.background = 'none';
+      art.appendChild(img);
+    } else {
+      art.style.background = w.bg;
+      art.textContent = w.emoji;
+    }
+
+    const info = document.createElement('div');
+    info.className = 'wallinfo';
+
+    const title = document.createElement('h3');
+    title.textContent = w.name;
+
+    const desc = document.createElement('p');
+    desc.textContent = w.cat + ' · Demo preview';
+
+    const price = document.createElement('strong');
+    price.textContent = w.price === 0 ? 'FREE' : '₹' + w.price;
+
+    const btn = document.createElement('button');
+    btn.textContent = w.price === 0 ? 'Download Wallpaper' : 'Get Wallpaper';
+
+    btn.addEventListener('click', () => {
+      if (w.price === 0 && w.image) {
+        const link = document.createElement('a');
+        link.href = w.image;
+        link.download = w.name + '.webp';
+        link.click();
+      } else {
+        alert('Premium payment is not enabled yet.');
+      }
+    });
+
+    info.append(title, desc, price, btn);
+    card.append(art, info);
+    $('#wallpapers').append(card);
+  });
 }
+
 drawWalls();
 $('#wallFilters').addEventListener('click',e=>{
  if(!e.target.matches('button'))return;
@@ -417,21 +460,6 @@ async function installVyntra() {
 }
 
 </script>
-<div class="wallpaper-card">
-  <img
-    src="wallpapers/584443600_17917153134214825_2232524934283976824_n.webp"
-    alt="Vyntra Wallpaper"
-    style="width:100%; max-width:350px; border-radius:12px;"
-  >
-  <p>Vyntra Wallpaper</p>
-  <span>FREE</span>
-  <br>
-  <a
-    href="wallpapers/584443600_17917153134214825_2232524934283976824_n.webp"
-    download
-  >
-    Download Wallpaper
-  </a>
-</div>
+
 </body>
 </html>
