@@ -350,5 +350,38 @@ $('#addTask').addEventListener('click',()=>{
 $('#taskInput').addEventListener('keydown',e=>{if(e.key==='Enter')$('#addTask').click();});
 renderTasks();
 </script>
+ 
+<!-- Vyntra Install Button -->
+<button id="installBtn" style="position:fixed;right:18px;bottom:18px;z-index:9999;padding:13px 20px;border:0;border-radius:30px;background:#6c5ce7;color:white;font-size:15px;font-weight:bold;cursor:pointer;">
+  ⬇ Install Vyntra
+</button>
+
+<script>
+let deferredPrompt;
+const installBtn = document.getElementById('installBtn');
+installBtn.style.display = 'none';
+
+window.addEventListener('beforeinstallprompt', (event) => {
+  event.preventDefault();
+  deferredPrompt = event;
+  installBtn.style.display = 'block';
+});
+
+installBtn.addEventListener('click', async () => {
+  if (deferredPrompt) {
+    deferredPrompt.prompt();
+    await deferredPrompt.userChoice;
+    deferredPrompt = null;
+    installBtn.style.display = 'none';
+  } else {
+    alert('Browser menu open maadi Install app athava Add to Home Screen select maadi.');
+  }
+});
+
+window.addEventListener('appinstalled', () => {
+  installBtn.style.display = 'none';
+});
+</script>
+
 </body>
 </html>
