@@ -1,5 +1,6 @@
 
 {
+  "id": "./",
   "name": "Vyntra - Everyday Digital Tools",
   "short_name": "Vyntra",
   "description": "Everyday digital tools in one place",
@@ -7,6 +8,5 @@
   "scope": "./",
   "display": "standalone",
   "background_color": "#080b1b",
-  "theme_color": "#6757e8",
-  "icons": []
+  "theme_color": "#6757e8"
 }
