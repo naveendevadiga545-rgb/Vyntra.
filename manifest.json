@@ -8,5 +8,13 @@
   "scope": "./",
   "display": "standalone",
   "background_color": "#080b1b",
-  "theme_color": "#6757e8"
+  "theme_color": "#6757e8",
+  "icons": [
+    {
+      "src": "./icon-512.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "any"
+    }
+  ]
 }
