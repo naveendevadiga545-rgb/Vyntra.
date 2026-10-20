@@ -44,7 +44,21 @@ main{max-width:1180px;margin:auto;padding:28px 20px 50px}
 .filters button.active{background:var(--accent);color:white}
 .wallpapers{display:grid;grid-template-columns:repeat(3,1fr);gap:15px}
 .wall{overflow:hidden}
-.wallart{height:165px;display:grid;place-items:center;font-size:55px;color:white}
+.wallart{
+  height:165px;
+  display:grid;
+  place-items:center;
+  font-size:55px;
+  color:white;
+  overflow:hidden;
+  width:100%;
+}
+.wallart img{
+  display:block;
+  width:100%;
+  height:100%;
+  object-fit:cover;
+}
 .wallinfo{padding:14px}
 .wallinfo h3{margin:0 0 6px}
 .wallinfo p{font-size:13px;color:var(--muted)}
