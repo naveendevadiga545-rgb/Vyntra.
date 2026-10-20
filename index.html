@@ -1,0 +1,354 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="theme-color" content="#6757e8">
+<title>Vyntra — Everyday Digital Tools</title>
+<style>
+:root{--bg:#f4f0ff;--card:#fff;--text:#211844;--muted:#766b96;--line:#e3dafb;--accent:#7257ff}
+*{box-sizing:border-box}
+body{margin:0;font-family:Inter,system-ui,Arial,sans-serif;background:radial-gradient(ellipse at 10% 0%,#e5d5ff,transparent 40%),radial-gradient(ellipse at 90% 10%,#d7f5ff,transparent 35%),linear-gradient(135deg,#f9f5ff,#edf4ff,#f9efff);color:var(--text);min-height:100vh}
+body.dark{--bg:#080b1b;--card:#141832;--text:#f5f6ff;--muted:#adb5d6;--line:#30365e;background:radial-gradient(ellipse at top left,#272052,transparent 45%),#080b1b}
+header{position:sticky;top:0;z-index:5;background:color-mix(in srgb,var(--bg) 88%,transparent);backdrop-filter:blur(18px);border-bottom:1px solid var(--line)}
+.nav{max-width:1180px;margin:auto;padding:14px 20px;display:flex;align-items:center;gap:12px}
+.logo{width:43px;height:43px;border-radius:14px;display:grid;place-items:center;background:linear-gradient(135deg,#a45cff,#6757ff,#00c8ff);color:white;font-weight:900;font-size:25px}
+.brand{font-size:26px;font-weight:900;letter-spacing:-1px;background:linear-gradient(100deg,#7553ed,#159fd9);background-clip:text;color:transparent}
+.space{flex:1}
+button{cursor:pointer;border:0;border-radius:12px;padding:11px 15px;background:linear-gradient(110deg,#654bff,#8952f5,#386dff);color:white;font:inherit;font-weight:700}
+button:hover{filter:brightness(1.08)}
+.secondary{background:var(--bg);color:var(--text);border:1px solid var(--line)}
+main{max-width:1180px;margin:auto;padding:28px 20px 50px}
+.hero{padding:clamp(25px,5vw,55px);border-radius:28px;color:white;background:linear-gradient(115deg,#25205b,#6948c8 55%,#248bc4);display:grid;grid-template-columns:1.5fr 1fr;gap:25px;align-items:center;box-shadow:0 22px 65px #6651b333;overflow:hidden}
+.hero h1{font-size:clamp(38px,5vw,65px);line-height:1.04;letter-spacing:-2px;margin:20px 0}
+.hero p{line-height:1.8;color:#f0eaff;max-width:600px}
+.hero .brand{font-size:clamp(40px,6vw,68px);background:linear-gradient(100deg,#fff,#c6baff,#66dcff);background-clip:text;color:transparent}
+.pill{display:inline-block;padding:8px 13px;border:1px solid #ffffff60;border-radius:30px;background:#ffffff20}
+.hero-actions{display:flex;flex-wrap:wrap;gap:10px;margin-top:20px}
+.hero-actions .secondary{background:#ffffff18;color:white;border-color:#ffffff60}
+.orb{margin:auto;width:min(230px,60vw);aspect-ratio:1;border-radius:35% 65% 60% 40%;display:grid;place-items:center;font-size:90px;background:linear-gradient(135deg,#ffffff65,#ffffff10);border:1px solid #ffffff70;box-shadow:inset 0 0 45px #ffffff25;transform:rotate(-10deg)}
+.sectionhead{margin:32px 0 16px}
+.sectionhead h2{margin:0;font-size:25px}
+.sectionhead p{margin:6px 0;color:var(--muted)}
+.quickgrid{display:grid;grid-template-columns:repeat(4,1fr);gap:14px}
+.quick,.panel,.wall{background:var(--card);border:1px solid var(--line);border-radius:18px;box-shadow:0 12px 35px #6250a510}
+.quick{text-align:left;color:var(--text);padding:18px}
+.quick .emoji{display:block;font-size:30px;margin-bottom:9px}
+.quick strong,.quick small{display:block}
+.quick small{color:var(--muted);margin-top:6px}
+.panel{padding:20px;min-width:0}
+.filters{display:flex;flex-wrap:wrap;gap:8px;margin-bottom:16px}
+.filters button{background:var(--bg);color:var(--text);border:1px solid var(--line)}
+.filters button.active{background:var(--accent);color:white}
+.wallpapers{display:grid;grid-template-columns:repeat(3,1fr);gap:15px}
+.wall{overflow:hidden}
+.wallart{height:165px;display:grid;place-items:center;font-size:55px;color:white}
+.wallinfo{padding:14px}
+.wallinfo h3{margin:0 0 6px}
+.wallinfo p{font-size:13px;color:var(--muted)}
+.wallinfo button{margin-top:8px}
+.toolsgrid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:15px}
+.tool h3{margin-top:0}
+.tool p{color:var(--muted);font-size:14px;line-height:1.6}
+.field{display:block;width:100%;padding:12px;margin:8px 0 12px;border:1px solid var(--line);border-radius:11px;background:var(--bg);color:var(--text);font:inherit}
+.row{display:flex;gap:10px;align-items:center}
+.row>*{min-width:0;flex:1}
+.result{margin-top:10px;padding:12px;background:var(--bg);border:1px solid var(--line);border-radius:11px;overflow-wrap:anywhere}
+.preview{display:block;max-width:100%;max-height:260px;margin:12px 0;border-radius:10px}
+.taskrow{display:flex;align-items:center;gap:10px;margin:10px 0}
+.taskrow span{flex:1;overflow-wrap:anywhere}
+footer{text-align:center;color:var(--muted);padding:30px 0 5px;font-size:14px}
+.hidden{display:none!important}
+@media(max-width:800px){.hero{grid-template-columns:1fr}.hero-art{display:none}.quickgrid{grid-template-columns:repeat(2,1fr)}.wallpapers{grid-template-columns:repeat(2,1fr)}}
+@media(max-width:540px){main{padding:18px 12px 35px}.nav{padding:12px}.hero{border-radius:20px}.toolsgrid{grid-template-columns:1fr}.wallpapers{gap:9px}.wallart{height:120px}.wallinfo{padding:10px}.wallinfo button{width:100%}.row{gap:6px}}
+</style>
+</head>
+<body>
+<header>
+<div class="nav">
+<div class="logo">V</div><div class="brand">Vyntra</div>
+<div class="space"></div>
+<button class="secondary" id="themeBtn">🌙 Theme</button>
+</div>
+</header>
+
+<main>
+<section class="hero">
+<div>
+<div class="brand">Vyntra</div>
+<p class="pill">Your everyday digital companion</p>
+<h1>Small tools.<br>Big possibilities.</h1>
+<p>Explore wallpapers, create QR codes, resize images, prepare PDFs, calculate faster, and keep your day organised — all in one simple place.</p>
+<div class="hero-actions">
+<button onclick="alert('To install, use your browser menu → Install app or Add to Home screen after configuring the PWA files.')">⇩ Install Now</button>
+<button class="secondary" onclick="go('tools')">Explore tools ↓</button>
+</div>
+</div>
+<div class="hero-art"><div class="orb">✦</div></div>
+</section>
+
+<div class="sectionhead"><h2>Quick access</h2><p>Jump straight into what you need.</p></div>
+<section class="quickgrid">
+<button class="quick" onclick="go('wallpaperSection')"><span class="emoji">🌄</span><strong>Wallpapers</strong><small>Demo previews</small></button>
+<button class="quick" onclick="go('imageTool')"><span class="emoji">🖼️</span><strong>Image tools</strong><small>Resize and convert</small></button>
+<button class="quick" onclick="go('qrTool')"><span class="emoji">▦</span><strong>QR generator</strong><small>Create a QR code</small></button>
+<button class="quick" onclick="go('pdfTool')"><span class="emoji">📄</span><strong>Image to PDF</strong><small>Prepare a PDF</small></button>
+</section>
+
+<section id="wallpaperSection">
+<div class="sectionhead"><h2>Wallpaper store</h2><p>Demo previews. No payments are collected.</p></div>
+<div class="panel">
+<div class="filters" id="wallFilters">
+<button class="active" data-filter="All">All</button>
+<button data-filter="Nature">Nature</button>
+<button data-filter="Abstract">Abstract</button>
+<button data-filter="Minimal">Minimal</button>
+<button data-filter="Dark">Dark</button>
+</div>
+<div class="wallpapers" id="wallpapers"></div>
+</div>
+</section>
+
+<section id="tools">
+<div class="sectionhead"><h2>Everyday tools</h2><p>Useful utilities that run in your browser.</p></div>
+<div class="toolsgrid">
+
+<div class="panel tool" id="imageTool">
+<h3>🖼️ Image resize & convert</h3><p>Choose an image, set dimensions, and export PNG or JPEG.</p>
+<input class="field" type="file" id="imageFile" accept="image/*">
+<div class="row"><input class="field" type="number" id="imgW" placeholder="Width (px)" min="1"><input class="field" type="number" id="imgH" placeholder="Height (px)" min="1"></div>
+<select class="field" id="imgFormat"><option value="image/png">PNG</option><option value="image/jpeg">JPEG</option></select>
+<button id="resizeBtn">Resize & export</button>
+<div id="imageStatus" class="result">Select an image to begin.</div>
+<img id="imagePreview" class="preview hidden" alt="Image preview">
+</div>
+
+<div class="panel tool" id="qrTool">
+<h3>▦ QR code generator</h3><p>Generate a QR code for text or a website. Internet access is required.</p>
+<textarea class="field" id="qrText" rows="3" placeholder="Enter text or https://example.com"></textarea>
+<button id="qrBtn">Generate QR</button><div id="qrResult" class="result">Your QR code appears here.</div>
+</div>
+
+<div class="panel tool" id="pdfTool">
+<h3>📄 Images to PDF</h3><p>Select images and use your browser's print dialog to save them as PDF.</p>
+<input class="field" type="file" id="pdfImages" accept="image/*" multiple>
+<button id="pdfBtn">Prepare PDF / Print</button>
+<div class="result">Choose “Save as PDF” in the print destination.</div>
+</div>
+
+<div class="panel tool">
+<h3>🧮 Calculator</h3><p>Basic arithmetic calculator.</p>
+<input class="field" id="calcExpr" placeholder="Example: (25 + 5) * 2">
+<button id="calcBtn">Calculate</button><div id="calcResult" class="result">Result appears here.</div>
+</div>
+
+<div class="panel tool">
+<h3>％ Percentage calculator</h3><p>Find a percentage of a value.</p>
+<div class="row"><input class="field" type="number" id="percent" placeholder="Percent"><input class="field" type="number" id="percentOf" placeholder="Value"></div>
+<button id="percentBtn">Calculate</button><div id="percentResult" class="result">Example: 10% of 250 = 25</div>
+</div>
+
+<div class="panel tool">
+<h3>🎂 Age calculator</h3><p>Calculate your age from your date of birth.</p>
+<input class="field" type="date" id="birthDate"><button id="ageBtn">Calculate age</button>
+<div id="ageResult" class="result">Your age appears here.</div>
+</div>
+
+<div class="panel tool">
+<h3>⏱️ Focus timer</h3><p>Focus for 25 minutes, then take a short break.</p>
+<div id="timerDisplay" style="font-size:35px;font-weight:850;margin:12px 0">25:00</div>
+<div class="row"><button id="timerStart">Start</button><button id="timerReset" class="secondary">Reset</button></div>
+</div>
+
+<div class="panel tool">
+<h3>📝 Notes & tasks</h3><p>Notes are saved in this browser on this device.</p>
+<textarea class="field" id="notes" rows="3" placeholder="Write a note..."></textarea>
+<div class="row"><input class="field" id="taskInput" placeholder="Add a task"><button id="addTask">Add task</button></div>
+<div id="taskList"></div>
+</div>
+
+</div>
+</section>
+<footer>© <span id="year"></span> Vyntra · A simple digital companion<br>Demo version · No real payments are processed.</footer>
+</main>
+
+<script>
+const $ = s => document.querySelector(s);
+const $$ = s => [...document.querySelectorAll(s)];
+function go(id){document.getElementById(id).scrollIntoView({behavior:'smooth',block:'start'});}
+$('#year').textContent = new Date().getFullYear();
+
+/* Theme */
+try {
+ if(localStorage.getItem('vyntra-theme') === 'dark') document.body.classList.add('dark');
+} catch(e){}
+function updateThemeButton(){ $('#themeBtn').textContent = document.body.classList.contains('dark') ? '☀️ Theme' : '🌙 Theme'; }
+updateThemeButton();
+$('#themeBtn').addEventListener('click',()=>{
+ document.body.classList.toggle('dark');
+ try{localStorage.setItem('vyntra-theme',document.body.classList.contains('dark')?'dark':'light')}catch(e){}
+ updateThemeButton();
+});
+
+/* Wallpapers */
+const wallpapers = [
+{name:'Aurora Dreams',cat:'Nature',price:10,emoji:'🌌',bg:'linear-gradient(135deg,#111d52,#7b5ce1,#f18db5)'},
+{name:'Ocean Calm',cat:'Nature',price:10,emoji:'🌊',bg:'linear-gradient(145deg,#073b60,#11a6b7,#b6f2e6)'},
+{name:'Neon Flow',cat:'Abstract',price:15,emoji:'〰️',bg:'linear-gradient(135deg,#1b104b,#b128ed,#ff5e87)'},
+{name:'Soft Geometry',cat:'Minimal',price:10,emoji:'◈',bg:'linear-gradient(135deg,#f4d6b7,#d58c85,#785c89)'},
+{name:'Midnight Grid',cat:'Dark',price:20,emoji:'▦',bg:'linear-gradient(135deg,#080b17,#27375b,#6258b7)'},
+{name:'Golden Dunes',cat:'Nature',price:15,emoji:'🏜️',bg:'linear-gradient(135deg,#754a39,#e6a35d,#f4d9a0)'}
+];
+function drawWalls(filter='All'){
+ $('#wallpapers').innerHTML='';
+ wallpapers.filter(w=>filter==='All'||w.cat===filter).forEach(w=>{
+  const card=document.createElement('article');card.className='wall';
+  const art=document.createElement('div');art.className='wallart';art.style.background=w.bg;art.textContent=w.emoji;
+  const info=document.createElement('div');info.className='wallinfo';
+  const title=document.createElement('h3');title.textContent=w.name;
+  const desc=document.createElement('p');desc.textContent=w.cat+' · Demo preview';
+  const price=document.createElement('strong');price.textContent='₹'+w.price+' ';
+  const btn=document.createElement('button');btn.textContent='Get wallpaper';
+  btn.addEventListener('click',()=>alert('Demo only: '+w.name+'. No payment was taken and no file was purchased.'));
+  info.append(title,desc,price,btn);card.append(art,info);$('#wallpapers').append(card);
+ });
+}
+drawWalls();
+$('#wallFilters').addEventListener('click',e=>{
+ if(!e.target.matches('button'))return;
+ $$('#wallFilters button').forEach(b=>b.classList.remove('active'));
+ e.target.classList.add('active');drawWalls(e.target.dataset.filter);
+});
+
+/* Image resize */
+let chosenImage=null;
+$('#imageFile').addEventListener('change',e=>{
+ chosenImage=e.target.files[0];
+ if(!chosenImage)return;
+ const url=URL.createObjectURL(chosenImage);
+ $('#imagePreview').src=url;$('#imagePreview').classList.remove('hidden');
+ const im=new Image();im.onload=()=>{$('#imgW').value=im.width;$('#imgH').value=im.height};im.src=url;
+ $('#imageStatus').textContent='Loaded '+chosenImage.name;
+});
+$('#resizeBtn').addEventListener('click',()=>{
+ if(!chosenImage){$('#imageStatus').textContent='Please choose an image first.';return;}
+ const im=new Image();
+ im.onload=()=>{
+  const w=Number($('#imgW').value)||im.width,h=Number($('#imgH').value)||im.height;
+  if(w>10000||h>10000||w<1||h<1){$('#imageStatus').textContent='Enter dimensions from 1 to 10000 pixels.';return;}
+  const c=document.createElement('canvas');c.width=w;c.height=h;
+  c.getContext('2d').drawImage(im,0,0,w,h);
+  c.toBlob(blob=>{
+   if(!blob){$('#imageStatus').textContent='Could not export this image.';return;}
+   const a=document.createElement('a');const url=URL.createObjectURL(blob);
+   a.href=url;a.download='vyntra-resized.'+($('#imgFormat').value==='image/png'?'png':'jpg');
+   a.click();URL.revokeObjectURL(url);$('#imageStatus').textContent=`Exported ${w} × ${h} image.`;
+  },$('#imgFormat').value,.92);
+ };
+ im.src=URL.createObjectURL(chosenImage);
+});
+
+/* QR generator */
+$('#qrBtn').addEventListener('click',()=>{
+ const value=$('#qrText').value.trim();
+ if(!value){$('#qrResult').textContent='Enter some text or a URL first.';return;}
+ $('#qrResult').innerHTML='';
+ const img=document.createElement('img');img.alt='Generated QR code';img.className='preview';
+ img.src='https://api.qrserver.com/v1/create-qr-code/?size=220x220&data='+encodeURIComponent(value);
+ img.onerror=()=>$('#qrResult').textContent='QR service unavailable. Check your internet connection.';
+ const a=document.createElement('a');a.href=img.src;a.target='_blank';a.rel='noopener';a.textContent='Open QR image';
+ $('#qrResult').append(img,a);
+});
+
+/* Images to PDF */
+$('#pdfBtn').addEventListener('click',()=>{
+ const files=[...$('#pdfImages').files];
+ if(!files.length){alert('Select one or more images first.');return;}
+ const win=window.open('','_blank');
+ if(!win){alert('Please allow pop-ups to prepare the PDF.');return;}
+ const urls=files.map(f=>URL.createObjectURL(f));
+ win.document.write('<!doctype html><html><head><title>Vyntra Image PDF</title><style>body{margin:0}img{display:block;max-width:100%;max-height:95vh;object-fit:contain;margin:0 auto;page-break-after:always}@page{margin:10mm}</style></head><body>'+urls.map(u=>'<img src="'+u+'">').join('')+'<script>window.onload=()=>setTimeout(()=>window.print(),700)<\/script></body></html>');
+ win.document.close();
+});
+
+/* Calculator: only arithmetic characters are accepted */
+$('#calcBtn').addEventListener('click',()=>{
+ const expr=$('#calcExpr').value.trim();
+ if(!expr){$('#calcResult').textContent='Enter a calculation.';return;}
+ if(!/^[0-9+\-*/().%\s]+$/.test(expr)){ $('#calcResult').textContent='Use numbers and arithmetic operators only.';return;}
+ try{
+  const result=Function('"use strict";return ('+expr+')')();
+  $('#calcResult').textContent=Number.isFinite(result)?String(result):'Please check the expression.';
+ }catch(e){$('#calcResult').textContent='Invalid expression.';}
+});
+
+/* Percentage */
+$('#percentBtn').addEventListener('click',()=>{
+ const p=Number($('#percent').value),v=Number($('#percentOf').value);
+ if($('#percent').value===''||$('#percentOf').value===''){ $('#percentResult').textContent='Enter both values.';return;}
+ $('#percentResult').textContent=`${p}% of ${v} = ${(p/100*v).toLocaleString(undefined,{maximumFractionDigits:8})}`;
+});
+
+/* Age */
+$('#ageBtn').addEventListener('click',()=>{
+ const val=$('#birthDate').value;
+ if(!val){$('#ageResult').textContent='Choose your date of birth.';return;}
+ const b=new Date(val+'T00:00:00'),now=new Date();
+ if(b>now){$('#ageResult').textContent='Date of birth cannot be in the future.';return;}
+ let y=now.getFullYear()-b.getFullYear(),m=now.getMonth()-b.getMonth(),d=now.getDate()-b.getDate();
+ if(d<0){m--;d+=new Date(now.getFullYear(),now.getMonth(),0).getDate();}
+ if(m<0){y--;m+=12;}
+ $('#ageResult').textContent=`${y} years, ${m} months, ${d} days`;
+});
+
+/* Focus timer */
+let secs=1500,interval=null;
+function showTimer(){$('#timerDisplay').textContent=String(Math.floor(secs/60)).padStart(2,'0')+':'+String(secs%60).padStart(2,'0');}
+$('#timerStart').addEventListener('click',()=>{
+ if(interval){clearInterval(interval);interval=null;$('#timerStart').textContent='Resume';return;}
+ if(secs<=0)secs=1500;
+ $('#timerStart').textContent='Pause';
+ interval=setInterval(()=>{
+  if(secs>0){secs--;showTimer();}
+  if(secs<=0){clearInterval(interval);interval=null;$('#timerStart').textContent='Start';alert('Focus session complete! Take a short break.');}
+ },1000);
+});
+$('#timerReset').addEventListener('click',()=>{
+ clearInterval(interval);interval=null;secs=1500;showTimer();$('#timerStart').textContent='Start';
+});
+
+/* Notes and tasks */
+let tasks=[];
+try{tasks=JSON.parse(localStorage.getItem('vyntra-tasks')||'[]');if(!Array.isArray(tasks))tasks=[];}catch(e){tasks=[];}
+try{$('#notes').value=localStorage.getItem('vyntra-notes')||'';}catch(e){}
+$('#notes').addEventListener('input',()=>{
+ try{localStorage.setItem('vyntra-notes',$('#notes').value);}catch(e){}
+});
+function renderTasks(){
+ const list=$('#taskList');list.innerHTML='';
+ tasks.forEach((t,i)=>{
+  const row=document.createElement('div');row.className='taskrow';
+  const cb=document.createElement('input');cb.type='checkbox';cb.checked=!!t.done;
+  cb.addEventListener('change',()=>{tasks[i].done=cb.checked;saveTasks();});
+  const span=document.createElement('span');span.textContent=t.text;
+  if(t.done)span.style.textDecoration='line-through';
+  const del=document.createElement('button');del.className='secondary';del.textContent='Delete';
+  del.addEventListener('click',()=>{tasks.splice(i,1);saveTasks();});
+  row.append(cb,span,del);list.append(row);
+ });
+}
+function saveTasks(){
+ try{localStorage.setItem('vyntra-tasks',JSON.stringify(tasks));}catch(e){}
+ renderTasks();
+}
+$('#addTask').addEventListener('click',()=>{
+ const value=$('#taskInput').value.trim();
+ if(!value)return;
+ tasks.push({text:value,done:false});$('#taskInput').value='';saveTasks();
+});
+$('#taskInput').addEventListener('keydown',e=>{if(e.key==='Enter')$('#addTask').click();});
+renderTasks();
+</script>
+</body>
+</html>
