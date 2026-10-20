@@ -395,5 +395,24 @@ if ('serviceWorker' in navigator) {
 }
 </script>
 
+<script>
+let vyntraInstallPrompt = null;
+
+window.addEventListener('beforeinstallprompt', (event) => {
+  event.preventDefault();
+  vyntraInstallPrompt = event;
+});
+
+async function installVyntra() {
+  if (vyntraInstallPrompt) {
+    vyntraInstallPrompt.prompt();
+    await vyntraInstallPrompt.userChoice;
+    vyntraInstallPrompt = null;
+  } else {
+    alert('Install option is not ready yet. Please check the browser menu for Install app.');
+  }
+}
+</script>
+
 </body>
 </html>
